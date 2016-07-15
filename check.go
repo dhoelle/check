@@ -215,15 +215,15 @@ func hasStringOrError(x interface{}) (ok bool) {
 func (c *C) logValue(label string, value interface{}) {
 	if label == "" {
 		if hasStringOrError(value) {
-			c.logf("... %#v (%q)", value, value)
+			c.logf("... %+v (%q)", value, value)
 		} else {
-			c.logf("... %#v", value)
+			c.logf("... %+v", value)
 		}
 	} else if value == nil {
 		c.logf("... %s = nil", label)
 	} else {
 		if hasStringOrError(value) {
-			fv := fmt.Sprintf("%#v", value)
+			fv := fmt.Sprintf("%+v", value)
 			qv := fmt.Sprintf("%q", value)
 			if fv != qv {
 				c.logf("... %s %s = %s (%s)", label, reflect.TypeOf(value), fv, qv)
@@ -234,7 +234,7 @@ func (c *C) logValue(label string, value interface{}) {
 			c.logf(`... %s %s = "" +`, label, reflect.TypeOf(value))
 			c.logMultiLine(s)
 		} else {
-			c.logf("... %s %s = %#v", label, reflect.TypeOf(value), value)
+			c.logf("... %s %s = %+v", label, reflect.TypeOf(value), value)
 		}
 	}
 }
